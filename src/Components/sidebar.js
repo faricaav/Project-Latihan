@@ -35,6 +35,9 @@ export default function Sidebar(){
                 <NavLink exact to="/list" activeClassName="activeClicked">
                   <CDBSidebarMenuItem icon="list">List</CDBSidebarMenuItem>
                 </NavLink>
+                <NavLink exact to="/users" activeClassName="activeClicked">
+                  <CDBSidebarMenuItem icon="user-alt">Users</CDBSidebarMenuItem>
+                </NavLink>
                 <NavLink exact to="/" activeClassName="activeClicked">
                   <CDBSidebarMenuItem icon="sign-out-alt">Logout</CDBSidebarMenuItem>
                 </NavLink>

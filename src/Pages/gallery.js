@@ -2,6 +2,7 @@ import React, {useState, useEffect} from "react";
 import Card from "../Components/card";
 import { useSelector, useDispatch } from "react-redux";
 import { useLocation, Link } from "react-router-dom";
+import Alert from "../stories/Alert";
 
 export default function Gallery(){
     const sertifikat = useSelector((state) => state.sertifikat.sertifikat);
@@ -75,9 +76,9 @@ export default function Gallery(){
                         )) }
                         {siswa.sertifikat === "false" && 
                         <div align="center">
-                            <div className="alert alert-danger col-md-12">
+                            <Alert variant="danger">
                                 Belum ada sertifikat
-                            </div>
+                            </Alert>
                         </div>}
                     </div>
                 </div>

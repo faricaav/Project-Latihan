@@ -1,0 +1,45 @@
+.storybook-button {
+  font-weight: 700;
+  border: 0;
+  border-radius: 1em;
+  cursor: pointer;
+  display: inline-block;
+  line-height: 1;
+}
+.storybook-button--primary {
+  color: white;
+  background-color: #0B5ED7;
+  margin: 1px;
+}
+.storybook-button--success {
+  color: white;
+  background-color: #157347;
+  margin: 2px;
+}
+.storybook-button--danger {
+  color: white;
+  background-color: #DC3545;
+  margin: 2px;
+}
+.storybook-button--warning {
+  color: white;
+  background-color: #FFCA2C;
+  margin: 2px;
+}
+.storybook-button--secondary {
+  color: #333;
+  background-color: transparent;
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 0px 0px 1px inset;
+}
+.storybook-button--small {
+  font-size: 12px;
+  padding: 10px 16px;
+}
+.storybook-button--medium {
+  font-size: 14px;
+  padding: 11px 20px;
+}
+.storybook-button--large {
+  font-size: 16px;
+  padding: 12px 24px;
+}

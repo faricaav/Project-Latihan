@@ -8,6 +8,9 @@ import Login from "../Pages/Login/login";
 import Sidebar from "./sidebar";
 import AddSiswa from "./Form/tambah_siswa";
 import UpdateSiswa from "./Form/edit_siswa";
+import Users from "./users";
+import AddUsers from "./Form/tambah_users";
+import UpdateUsers from "./Form/edit_users";
 
 const SidebarLayout = () => (
     <>
@@ -34,8 +37,11 @@ const Main=()=>(
             />}/>
             <Route path="/gallery/:nis" element={<Gallery/>} />
             <Route path="/list" element={<List/>} />
+            <Route path="/users" element={<Users/>} />
             <Route path="/addSiswa" element={<AddSiswa/>} />
+            <Route path="/addUsers" element={<AddUsers/>} />
             <Route path="/updateSiswa/:nis" element={<UpdateSiswa/>} />
+            <Route path="/updateUsers/:id" element={<UpdateUsers/>} />
         </Route>
     </Routes>
 )

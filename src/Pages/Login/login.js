@@ -3,7 +3,38 @@ import ReactDOM from "react-dom";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
-import "./login.css";
+import "./login.css"
+import styled from "styled-components"
+
+const App = styled.div`
+  background-color: #D4F8E4;
+`
+const AuthFormContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+`
+
+const AuthFormContent = styled.div`
+  padding-left: 12%;
+  padding-right: 12%;
+`
+
+const AuthFormTitle = styled.h3`
+  text-align: center;
+  margin-bottom: 1em;
+  font-size: 24px;
+  color: rgb(34, 34, 34);
+  font-weight: 800;
+`
+
+const Label = styled.label`
+  font-size: 14px;
+  font-weight: 600;
+  color: rgb(34, 34, 34);
+`
 
 function Login() {
   const navigate = useNavigate()
@@ -52,20 +83,20 @@ function Login() {
   );
 
   return (
-  <div className="App">
-    <div className="Auth-form-container">
+  <App>
+    <AuthFormContainer>
       <form className="Auth-form" onSubmit={handleSubmit}>
-        <div className="Auth-form-content">
-          <h3 className="Auth-form-title mt-3">Login</h3>
+        <AuthFormContent>
+          <AuthFormTitle>Login</AuthFormTitle>
           <div className="form-group mt-3">
-            <label>Username</label>
+            <Label>Username</Label>
             <input type="text" name="uname" value={username} 
             required className="form-control mt-1 shadow p-2 mb-1 rounded" placeholder="Enter username"
             onChange={(e)=> setUsername(e.target.value)}/>
             {renderErrorMessage("uname")}
           </div>
           <div className="form-group mt-3">
-            <label>Password</label>
+            <Label>Password</Label>
             <input type="password" name="pass" value={password} 
             required className="form-control mt-1 shadow p-2 mb-1 rounded" placeholder="Enter password"
             onChange={(e)=> setPassword(e.target.value)}/>
@@ -76,10 +107,10 @@ function Login() {
                 Login
             </button>
           </div>
-        </div>
+        </AuthFormContent>
       </form>
-    </div>
-  </div>
+    </AuthFormContainer>
+  </App>
   );
 }
 

@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, Link, useLocation } from "react-router-dom";
 import { useState } from "react";
 import { updateSiswa } from "../../Store/siswa";
+import { Button } from "../../stories/Button";
 
 export default function UpdateSiswa() {
   const dispatch = useDispatch();
@@ -134,11 +135,12 @@ export default function UpdateSiswa() {
               </div>
             </div>
           </div>
-          <button type="submit" className="btn btn-primary mt-5">
-            Submit
-          </button>
+          <br/>
+          <br/>
+          <Button type="submit" primary={true} label="Submit">
+          </Button>
           <Link to={"/list"}>
-            <button className="btn btn-danger mt-5 mx-2">Cancel</button>
+            <Button type="submit" danger={true} label="Cancel"></Button>
           </Link>
         </form>
       </div>

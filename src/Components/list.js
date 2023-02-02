@@ -1,6 +1,9 @@
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { deleteSiswa } from "../Store/siswa";
+import "../stories/table.css"
+import { Button } from "../stories/Button";
+import { EmptyDataList } from "../stories/Table.stories";
 
 export default function List() {
   const dispatch = useDispatch();
@@ -38,16 +41,18 @@ export default function List() {
       {/* generate list */}
       <br />
       <br />
+      {siswa.length===0 && <EmptyDataList/>}
+      {siswa.length>0 && 
       <ul className="list-group ">
-        <table class="table table-bordered shadow p-2 mb-1 bg-white rounded">
+        <table>
           <thead>
-            <tr align="center">
-              <th scope="col">NIS</th>
-              <th scope="col">Nama</th>
-              <th scope="col">Alamat</th>
-              <th scope="col">Jurusan</th>
-              <th scope="col">Sertifikat</th>
-              <th scope="col">Aksi</th>
+            <tr>
+              <th>NIS</th>
+              <th>Nama</th>
+              <th>Alamat</th>
+              <th>Jurusan</th>
+              <th>Sertifikat</th>
+              <th>Aksi</th>
             </tr>
           </thead>
           <tbody>
@@ -64,30 +69,27 @@ export default function List() {
                   </td>
                   <td>
 				  	<Link to={`/gallery/${item.nis}`}>
-                    <button
-                      className="btn btn-sm btn-warning m-1"
-                      data-toggle="modal"
-                      data-target="#modal"
-                    >
-                      <svg
+                    <Button
+                      warning={true}
+                      size="small"
+                      label={<svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="16"
                         height="16"
                         fill="currentColor"
                         class="bi bi-three-dots"
-                        viewBox="0 0 18 18"
+                        viewBox="0 0 16 16"
                       >
                         <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z" />
-                      </svg>
-                    </button>
-					</Link>
+                      </svg>}
+                    >
+                    </Button>
+					          </Link>
                     <Link to={`/updateSiswa/${item.nis}`}>
-                      <button
-                        className="btn btn-sm btn-primary m-1"
-                        data-toggle="modal"
-                        data-target="#modal"
-                      >
-                        <svg
+                      <Button
+                        primary={true}
+                        size="small"
+                        label={<svg
                           xmlns="http://www.w3.org/2000/svg"
                           width="16"
                           height="16"
@@ -100,16 +102,17 @@ export default function List() {
                             fill-rule="evenodd"
                             d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"
                           />
-                        </svg>
-                      </button>
+                        </svg>}
+                      >
+                      </Button>
                     </Link>
-                    <button
-                      className="btn btn-sm btn-danger m-1"
+                    <Button
+                      danger={true}
                       onClick={() => {
                         dispatch(deleteSiswa(item.nis));
                       }}
-                    >
-                      <svg
+                      size="small"
+                      label={<svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="16"
                         height="16"
@@ -122,8 +125,9 @@ export default function List() {
                           fill-rule="evenodd"
                           d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"
                         />
-                      </svg>
-                    </button>
+                      </svg>}
+                    >
+                    </Button>
                   </td>
                 </tr>
               );
@@ -131,6 +135,7 @@ export default function List() {
           </tbody>
         </table>
       </ul>
+      }
     </div>
   );
 }
