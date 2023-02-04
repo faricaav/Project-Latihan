@@ -12,7 +12,7 @@ import Users from "./users";
 import AddUsers from "./Form/tambah_users";
 import UpdateUsers from "./Form/edit_users";
 
-const SidebarLayout = () => (
+export const SidebarLayout = () => (
     <>
       <Sidebar />
       <Outlet />

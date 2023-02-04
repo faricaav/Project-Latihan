@@ -1,13 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = {
+export const initialState = {
     siswa: [
-        {nis: "100", nama: "Sheva", alamat: "Surabaya", jurusan: "RPL", sertifikat: "true"},  
+        {nis: "100", nama: "Sheva", alamat: "Surabaya", jurusan: "TKJ", sertifikat: "true"},  
         {nis: "101", nama: "Shiva", alamat: "Malang", jurusan: "RPL", sertifikat: "true"},  
         {nis: "102", nama: "Shava", alamat: "Pasuruan", jurusan: "RPL", sertifikat: "false"},
     ]};
 
-const siswaSlice = createSlice({
+export const siswaSlice = createSlice({
   name: "siswa",
   initialState,
   reducers: {

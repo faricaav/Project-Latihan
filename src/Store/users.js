@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import UsersService from "../Services/users"
 
-const initialState = [];
+export const initialState = [];
 
 export const retrieveUsers = createAsyncThunk(
   "users",
@@ -36,7 +36,7 @@ export const deleteUsers = createAsyncThunk(
   }
 );
 
-const usersSlice = createSlice({
+export const usersSlice = createSlice({
   name: "users",
   initialState,
   reducers: {},

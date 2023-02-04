@@ -16,7 +16,7 @@ export default function TableList() {
             </thead>            
             <tbody>
             <tr>
-                <td colspan="6">No data available</td>
+                <td colSpan="6">No data available</td>
             </tr>
             </tbody>
         </table>
@@ -38,7 +38,7 @@ export function TableUser() {
             </thead>            
             <tbody>
             <tr>
-                <td colspan="5">No data available</td>
+                <td colSpan="5">No data available</td>
             </tr>
             </tbody>
         </table>

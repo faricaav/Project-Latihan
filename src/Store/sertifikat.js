@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = {
+export const initialState = {
     sertifikat: [
         {
             judul:"Lomba Menulis Nasional", lomba:"Tere Liye Competition",
@@ -20,7 +20,7 @@ const initialState = {
         }
     ]};
 
-const sertifikatSlice = createSlice({
+export const sertifikatSlice = createSlice({
   name: "sertifikat",
   initialState,
   reducers: {},

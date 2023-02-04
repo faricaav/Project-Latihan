@@ -68,7 +68,7 @@ export default function Gallery(){
                     </div>
                     <div className="row">
                         { siswa.sertifikat === "true" && filteredSertif.map( (item, index) => (
-                            <Card
+                            <Card key={index} data-testid="list-item"
                             judul={item.judul}
                             lomba={item.lomba}
                             cover={item.cover}

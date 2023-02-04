@@ -19,8 +19,6 @@ export default function AddUsers() {
   const handleInputChange = event => {
     const { name, value } = event.target;
     setUsers({ ...users, [name]: value });
-    console.log(value)
-    console.log(users)
   };
 
   const saveUsers = () => {
@@ -64,6 +62,7 @@ export default function AddUsers() {
             <input
               type="text"
               name="name"
+              role="input-name"
               className="form-control"
               value={users.name}
               onChange={handleInputChange}
@@ -75,6 +74,7 @@ export default function AddUsers() {
             <input
               type="text"
               name="username"
+              role="input-username"
               className="form-control"
               value={users.username}
               onChange={handleInputChange}
@@ -86,6 +86,7 @@ export default function AddUsers() {
             <input
               type="text"
               name="email"
+              role="input-email"
               className="form-control"
               value={users.email}
               onChange={handleInputChange}
@@ -97,6 +98,7 @@ export default function AddUsers() {
             <input
               type="text"
               name="phone"
+              role="input-phone"
               className="form-control"
               value={users.phone}
               onChange={handleInputChange}

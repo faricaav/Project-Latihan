@@ -11,8 +11,6 @@ export default function Users() {
   const navigate = useNavigate();
   const users = useSelector((state) => state.users);
 
-  console.log(users)
-
   const removeUsers = (item) => {
     if(window.confirm("Apakah yakin untuk menghapus?")){
       dispatch(deleteUsers({ id: item.id }))
@@ -54,7 +52,7 @@ export default function Users() {
             width="16"
             height="16"
             fill="currentColor"
-            class="bi bi-plus-circle"
+            className="bi bi-plus-circle"
             viewBox="0 0 18 18"
           >
             <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
@@ -68,7 +66,7 @@ export default function Users() {
       <br />
       {users.length===0 && <EmptyDataUser/>}
       {users.length>0 && 
-      <ul className="list-group ">
+      <ul className="list-group " >
         <table>
           <thead>
             <tr>
@@ -82,7 +80,7 @@ export default function Users() {
           <tbody>
             {users && users.map((item, index) => {
               return (
-                <tr align="center">
+                <tr align="center" key={index} data-testid="list-user">
                   <td>{item.name}</td>
                   <td>{item.username}</td>
                   <td>{item.email}</td>
@@ -97,7 +95,7 @@ export default function Users() {
                           width="16"
                           height="16"
                           fill="currentColor"
-                          class="bi bi-pencil-square"
+                          className="bi bi-pencil-square"
                           viewBox="0 0 18 18"
                         >
                           <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
@@ -111,6 +109,7 @@ export default function Users() {
                     </Link>
                     <Button
                       danger={true}
+                      data-testid={`delete-${index}`} key={index}
                       onClick={() => {
                         dispatch(removeUsers(item));
                       }}
@@ -120,7 +119,7 @@ export default function Users() {
                         width="16"
                         height="16"
                         fill="currentColor"
-                        class="bi bi-trash"
+                        className="bi bi-trash"
                         viewBox="0 0 18 18"
                       >
                         <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />

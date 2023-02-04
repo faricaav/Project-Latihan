@@ -3,8 +3,7 @@ import {Carousel} from 'react-bootstrap';
 import { useLocation, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
-export default function Dashboard(props){
-    const Container = styled.div`
+const Container = styled.div`
         padding-left:10%;
         padding-top:30px;
     `
@@ -14,15 +13,16 @@ export default function Dashboard(props){
     const Paragraph = styled.p`
         text-black
     `
-    const user = useLocation();
-    const fullName = user?.state?.fullName;
+export default function Dashboard(props){
+    // const user = useLocation();
+    // const fullName = user?.state?.fullName;
     return(
         <Container>
-            <div className='card w-50 mt-5 shadow p-2 mb-1 rounded'>
-            <h2 className="my-2 mt-2">{props.greetings} {fullName} 👋</h2>
+            <div role="heading" aria-level="2" className='card w-50 mt-5 shadow p-2 mb-1 rounded'>
+            <h2 className="my-2 mt-2">{props.greetings} 👋</h2>
             </div>
             <br></br>
-            <Carousel>
+            <Carousel role="carousel">
             <Carousel.Item>
                 <img
                 height="500"

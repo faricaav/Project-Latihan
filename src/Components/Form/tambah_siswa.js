@@ -61,6 +61,7 @@ export default function AddSiswa() {
             <input
               type="text"
               name="nis"
+              role="input-nis"
               className="form-control"
               value={nis}
               onChange={(e) => setNis(e.target.value)}
@@ -72,6 +73,7 @@ export default function AddSiswa() {
             <input
               type="text"
               name="nama"
+              role="input-nama"
               className="form-control"
               value={nama}
               onChange={(e) => setNama(e.target.value)}
@@ -83,6 +85,7 @@ export default function AddSiswa() {
             <input
               type="text"
               name="alamat"
+              role="input-alamat"
               className="form-control"
               value={alamat}
               onChange={(e) => setAlamat(e.target.value)}
@@ -94,6 +97,7 @@ export default function AddSiswa() {
             <input
               type="text"
               name="jurusan"
+              role="input-jurusan"
               className="form-control"
               value={jurusan}
               onChange={(e) => setJurusan(e.target.value)}
@@ -102,12 +106,13 @@ export default function AddSiswa() {
           </div>
           <div className="form-group">
             <label className="col-sm-2 col-form-label mt-2">Sertifikat</label>
-            <div class="col-sm-10">
+            <div className="col-sm-10">
               <div className="radio mt-2">
                 <label>
                   <input
                     type="radio"
                     name="sertifikat"
+                    role="input-sertifikat-true"
                     value="true"
                     checked={sertifikat === "true"}
                     onChange={(e) => setSertifikat(e.target.value)}
@@ -119,6 +124,7 @@ export default function AddSiswa() {
                   <input
                     type="radio"
                     name="sertifikat"
+                    role="input-sertifikat-false"
                     value="false"
                     checked={sertifikat === "false"}
                     onChange={(e) => setSertifikat(e.target.value)}

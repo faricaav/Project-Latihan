@@ -67,7 +67,8 @@ function Login() {
         setIsSubmitted(false);
       } else {
         setIsSubmitted(true);
-        navigate("/dashboard", {state:{fullName: username}})
+        navigate("/dashboard")
+        // return (<div role="login"></div>)
       }
     } else {
       // Username not found
@@ -90,20 +91,20 @@ function Login() {
           <AuthFormTitle>Login</AuthFormTitle>
           <div className="form-group mt-3">
             <Label>Username</Label>
-            <input type="text" name="uname" value={username} 
+            <input type="text" role="input-username" name="uname" value={username} 
             required className="form-control mt-1 shadow p-2 mb-1 rounded" placeholder="Enter username"
             onChange={(e)=> setUsername(e.target.value)}/>
-            {renderErrorMessage("uname")}
+            <div role="error-uname">{renderErrorMessage("uname")}</div>
           </div>
           <div className="form-group mt-3">
             <Label>Password</Label>
-            <input type="password" name="pass" value={password} 
+            <input type="password" role="input-password" name="pass" value={password} 
             required className="form-control mt-1 shadow p-2 mb-1 rounded" placeholder="Enter password"
             onChange={(e)=> setPassword(e.target.value)}/>
-            {renderErrorMessage("pass")}
+            <div role="error-pass">{renderErrorMessage("pass")}</div>
           </div>
           <div className="d-grid gap-2 mt-5">
-            <button type="submit" className="btn w-100 mb-3 shadow p-2 mb-1 rounded" style={{backgroundColor: "#D4F8E4"}}>
+            <button type="submit" role="get-user" className="btn w-100 mb-3 shadow p-2 mb-1 rounded" style={{backgroundColor: "#D4F8E4"}}>
                 Login
             </button>
           </div>
