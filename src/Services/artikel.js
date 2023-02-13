@@ -16,8 +16,8 @@ const update = (_id, data) => {
   return http.put(`/artikel/${_id}`, data);
 };
 
-const remove = id => {
-  return http.delete(`/artikel/${id}`);
+const remove = _id => {
+  return http.delete(`/artikel/${_id}`);
 };
 
 const ArtikelService = {

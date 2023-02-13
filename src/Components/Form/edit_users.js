@@ -6,12 +6,12 @@ import UsersService from "../../Services/users";
 import { Button } from "../../stories/Button";
 
 export default function UpdateUsers() {
-  const {id} = useParams();
-  console.log(id)
+  const {_id} = useParams();
+  console.log(_id)
   let navigate = useNavigate();
 
   const initialUsersState = {
-    id: 0,
+    _id: 0,
     name: "",
     username: "",
     email: "",
@@ -21,8 +21,8 @@ export default function UpdateUsers() {
 
   const dispatch = useDispatch();
 
-  const getUsers = id => {
-    UsersService.get(id)
+  const getUsers = _id => {
+    UsersService.get(_id)
       .then(response => {
         setCurrentUsers(response.data);
         console.log(response.data)
@@ -33,9 +33,9 @@ export default function UpdateUsers() {
   };
 
   useEffect(() => {
-    if (id)
-      getUsers(id);
-  }, [id]);
+    if (_id)
+      getUsers(_id);
+  }, [_id]);
 
   const handleInputChange = event => {
     const { name, value } = event.target;
@@ -44,7 +44,7 @@ export default function UpdateUsers() {
 
   const updateUsers = () => {
     console.log("tes", currentUsers)
-    dispatch(putUsers({ id: currentUsers.id, data: currentUsers }))
+    dispatch(putUsers({ _id: currentUsers._id, data: currentUsers }))
       .unwrap()
       .then(response => {
         console.log(response);

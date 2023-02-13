@@ -17,14 +17,14 @@ export default function AddUsers() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const id = e.target.id.value;
+    // const id = e.target.id.value;
     const name = e.target.name.value;
     const email = e.target.email.value;
     const username = e.target.username.value;
     const password = e.target.password.value;
 
     const newUsers = {
-      id,
+      // id,
       name,
       email,
       username,
@@ -56,7 +56,7 @@ export default function AddUsers() {
       </div>
       <div className="card mt-3 px-5 pt-5 pb-5 shadow p-2 mb-1 mt-1 rounded">
         <form onSubmit={(e)=>{handleSubmit(e)}}>
-        <div className="form-group">
+        {/* <div className="form-group">
             <label className="col-sm-2 col-form-label mt-2">ID</label>
             <input
               type="text"
@@ -67,7 +67,7 @@ export default function AddUsers() {
               onChange={(e) => setId(e.target.value)}
               required
             />
-          </div>
+          </div> */}
           <div className="form-group">
             <label className="col-sm-2 col-form-label mt-2">Name</label>
             <input

@@ -67,10 +67,10 @@ function Login() {
     var { uname, pass } = document.forms[0];
 
     // Find user login info
-    const userData = user.find((user) => user.data.username === uname.value);
+    const userData = user.find((user) => user.username === uname.value);
     // Compare user info
     if (userData) {
-      if (userData.data.password !== pass.value) {
+      if (userData.password !== pass.value) {
         // Invalid password
         setErrorMessages({ name: "pass", message: errors.pass });
         setIsSubmitted(false);

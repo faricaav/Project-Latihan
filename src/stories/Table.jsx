@@ -24,6 +24,27 @@ export default function TableList() {
     )
 }
 
+export function TableArtikel() {
+    return (
+        <table>
+            <thead>
+                <tr>
+                    <th>Karya</th>
+                    <th>Tanggal Publish</th>
+                    <th>Isi</th>
+                    <th>Aksi</th>
+                </tr>
+            </thead>            
+            <tbody>
+            <tr>
+                <td colSpan="4">No data available</td>
+            </tr>
+            </tbody>
+        </table>
+        
+    )
+}
+
 export function TableUser() {
     return (
         <table>
@@ -32,7 +53,7 @@ export function TableUser() {
                     <th>Nama</th>
                     <th>Username</th>
                     <th>Email</th>
-                    <th>Phone</th>
+                    <th>Password</th>
                     <th>Aksi</th>
                 </tr>
             </thead>            

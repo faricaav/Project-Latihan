@@ -49,7 +49,7 @@ const Main=()=>(
             <Route path="/addSiswa" element={<AddSiswa/>} />
             <Route path="/addUsers" element={<AddUsers/>} />
             <Route path="/updateSiswa/:nis" element={<UpdateSiswa/>} />
-            <Route path="/updateUsers/:id" element={<UpdateUsers/>} />
+            <Route path="/updateUsers/:_id" element={<UpdateUsers/>} />
         </Route>
     </Routes>
 )

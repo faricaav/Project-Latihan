@@ -22,17 +22,17 @@ export const createUsers = createAsyncThunk(
 
 export const putUsers = createAsyncThunk(
   "users/update",
-  async ({ id, data }) => {
-    const res = await UsersService.update(id, data);
+  async ({ _id, data }) => {
+    const res = await UsersService.update(_id, data);
     return res.data;
   }
 );
 
 export const deleteUsers = createAsyncThunk(
   "users/delete",
-  async ({ id }) => {
-    await UsersService.remove(id);
-    return { id };
+  async ({ _id }) => {
+    await UsersService.remove(_id);
+    return { _id };
   }
 );
 
@@ -51,14 +51,14 @@ export const usersSlice = createSlice({
       return [...action.payload];
     },
     [putUsers.fulfilled]: (state, action) => {
-      const index = state.findIndex(users => users.id === action.payload.id);
+      const index = state.findIndex(users => users._id === action.payload._id);
       state[index] = {
         ...state[index],
         ...action.payload,
       };
     },
     [deleteUsers.fulfilled]: (state, action) => {
-      let index = state.findIndex(({ id }) => id === action.payload.id);
+      let index = state.findIndex(({ _id }) => _id === action.payload._id);
       state.splice(index, 1);
     },
   }

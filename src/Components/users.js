@@ -11,9 +11,9 @@ export default function Users() {
   const navigate = useNavigate();
   const users = useSelector((state) => state.users);
 
-  const removeUsers = (id) => {
+  const removeUsers = (_id) => {
     if(window.confirm("Apakah yakin untuk menghapus?")){
-      dispatch(deleteUsers({ id }))
+      dispatch(deleteUsers({ _id }))
         .unwrap()
         .then(() => {
           navigate("/users");
@@ -77,14 +77,14 @@ export default function Users() {
             </tr>
           </thead>
           <tbody>
-            {users && users.map((item, index) => {
+            {users.map((item, index) => {
               return (
                 <tr align="center" key={index} data-testid="list-user">
-                  <td>{item.data.name}</td>
-                  <td>{item.data.username}</td>
-                  <td>{item.data.email}</td>
+                  <td>{item.name}</td>
+                  <td>{item.username}</td>
+                  <td>{item.email}</td>
                   <td>
-                  <Link to={`/updateUsers/${item.id}`}>
+                  <Link to={`/updateUsers/${item._id}`}>
                       <Button
                         primary={true}
                         size="small"
@@ -109,7 +109,7 @@ export default function Users() {
                       danger={true}
                       data-testid={`delete-${index}`} key={index}
                       onClick={async() => {
-                        await dispatch(removeUsers(item.id));
+                        await dispatch(removeUsers(item._id));
                       }}
                       size="small"
                       label={<svg

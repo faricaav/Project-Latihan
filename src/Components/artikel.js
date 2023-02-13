@@ -4,14 +4,15 @@ import { Link } from "react-router-dom";
 import { deleteArtikel, retrieveArtikel } from "../Store/artikel";
 import "../stories/table.css"
 import { Button } from "../stories/Button";
-import { EmptyDataList } from "../stories/Table.stories";
+import { EmptyDataArtikel } from "../stories/Table.stories";
 import { useNavigate } from "react-router-dom";
 
 export default function Artikel() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const artikel = useSelector((state) => state.artikel);
-  
+  console.log(artikel.length)
+
   const removeArtikel = (item) => {
     if(window.confirm("Apakah yakin untuk menghapus?")){
       dispatch(deleteArtikel({ _id: item._id }))
@@ -64,7 +65,7 @@ export default function Artikel() {
       {/* generate list */}
       <br />
       <br />
-      {artikel.length===0 && <EmptyDataList/>}
+      {artikel.length===0 && <EmptyDataArtikel/>}
       {artikel.length>0 && 
       <ul className="list-group ">
         <table>

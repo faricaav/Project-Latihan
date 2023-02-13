@@ -1,10 +1,10 @@
 import React from 'react';
-import { RenderTableData, TableUser } from './Table';
+import { RenderTableData, TableUser, TableArtikel } from './Table';
 import TableList from './Table';
 
 export default {
     title: 'Example/Table',
-    component: TableList, RenderTableData, TableUser
+    component: TableList, RenderTableData, TableUser, TableArtikel
 }
 
 const data = [
@@ -25,6 +25,12 @@ export function ShowStudentsData() {
 export function EmptyDataList(){
     return (
         <TableList />
+    )
+}
+
+export function EmptyDataArtikel(){
+    return (
+        <TableArtikel />
     )
 }
 

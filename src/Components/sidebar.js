@@ -35,11 +35,11 @@ export default function Sidebar(){
                 <NavLink to="/list" activeclassname="activeClicked">
                   <CDBSidebarMenuItem icon="list">List</CDBSidebarMenuItem>
                 </NavLink>
-                <NavLink to="/artikel" activeclassname="activeClicked">
-                  <CDBSidebarMenuItem icon="file-alt">Artikel</CDBSidebarMenuItem>
-                </NavLink>
                 <NavLink to="/users" activeclassname="activeClicked">
                   <CDBSidebarMenuItem icon="user-alt">Users</CDBSidebarMenuItem>
+                </NavLink>
+                <NavLink to="/artikel" activeclassname="activeClicked">
+                  <CDBSidebarMenuItem icon="file-alt">Artikel</CDBSidebarMenuItem>
                 </NavLink>
                 <NavLink to="/" activeclassname="activeClicked">
                   <CDBSidebarMenuItem icon="sign-out-alt">Logout</CDBSidebarMenuItem>
