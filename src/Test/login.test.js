@@ -1,4 +1,4 @@
-import { screen, render, fireEvent, getByRole } from "@testing-library/react";
+import { screen, render, fireEvent } from "@testing-library/react";
 import Login from "../Pages/Login/login.js";
 import { Provider } from 'react-redux';
 import store from "../Store/store"

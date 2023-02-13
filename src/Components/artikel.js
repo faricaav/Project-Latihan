@@ -1,22 +1,23 @@
+import { useEffect, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
-import { deleteUsers, retrieveUsers } from "../Store/users";
-import { useCallback, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { deleteArtikel, retrieveArtikel } from "../Store/artikel";
 import "../stories/table.css"
 import { Button } from "../stories/Button";
-import { EmptyDataUser } from "../stories/Table.stories";
+import { EmptyDataList } from "../stories/Table.stories";
+import { useNavigate } from "react-router-dom";
 
-export default function Users() {
+export default function Artikel() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const users = useSelector((state) => state.users);
-
-  const removeUsers = (id) => {
+  const artikel = useSelector((state) => state.artikel);
+  
+  const removeArtikel = (item) => {
     if(window.confirm("Apakah yakin untuk menghapus?")){
-      dispatch(deleteUsers({ id }))
+      dispatch(deleteArtikel({ _id: item._id }))
         .unwrap()
         .then(() => {
-          navigate("/users");
+          navigate("/artikel");
         })
         .catch(e => {
           console.log(e);
@@ -25,23 +26,22 @@ export default function Users() {
   };
 
   const initFetch = useCallback(() => {
-    dispatch(retrieveUsers());
+    dispatch(retrieveArtikel());
   }, [dispatch])
 
   useEffect(() => {
     initFetch()
   }, [initFetch])
-  
   return (
     <div
       className="container my-n5 mt-5"
       style={{ paddingLeft: "10%", paddingTop: "30px" }}
     >
       <b>
-        <h4 align="left">List Users</h4>
+        <h4 align="left">List Artikel</h4>
       </b>
       <br />
-      <Link to={`/addUsers`}>
+      <Link to={`/addArtikel`}>
         <button
           className="btn btn-sm btn-success col-sm-12 shadow p-2 mb-1 rounded"
           data-toggle="modal"
@@ -64,27 +64,27 @@ export default function Users() {
       {/* generate list */}
       <br />
       <br />
-      {users.length===0 && <EmptyDataUser/>}
-      {users.length>0 && 
-      <ul className="list-group " >
+      {artikel.length===0 && <EmptyDataList/>}
+      {artikel.length>0 && 
+      <ul className="list-group ">
         <table>
           <thead>
             <tr>
-              <th>Nama</th>
-              <th>Username</th>
-              <th>Email</th>
+              <th>Karya</th>
+              <th>Tanggal Publish</th>
+              <th>Isi</th>
               <th>Aksi</th>
             </tr>
           </thead>
           <tbody>
-            {users && users.map((item, index) => {
+            {artikel.map((item, index) => {
               return (
-                <tr align="center" key={index} data-testid="list-user">
-                  <td>{item.data.name}</td>
-                  <td>{item.data.username}</td>
-                  <td>{item.data.email}</td>
+                <tr align="center" key={index} data-testid="list-item">
+                  <td>{item.karya}</td>
+                  <td>{item.tanggal_publish}</td>
+                  <td>{item.isi}</td>
                   <td>
-                  <Link to={`/updateUsers/${item.id}`}>
+                    <Link to={`/updateArtikel/${item._id}`}>
                       <Button
                         primary={true}
                         size="small"
@@ -108,8 +108,8 @@ export default function Users() {
                     <Button
                       danger={true}
                       data-testid={`delete-${index}`} key={index}
-                      onClick={async() => {
-                        await dispatch(removeUsers(item.id));
+                      onClick={() => {
+                        dispatch(removeArtikel(item));
                       }}
                       size="small"
                       label={<svg
@@ -135,7 +135,7 @@ export default function Users() {
           </tbody>
         </table>
       </ul>
-    }
+      }
     </div>
   );
 }

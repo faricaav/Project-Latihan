@@ -1,7 +1,7 @@
 import { useDispatch } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
 import { useState } from "react";
-import { tambahSiswa } from "../../Store/siswa";
+import { createSiswa } from "../../Store/siswa";
 import { Button } from "../../stories/Button";
 
 export default function AddSiswa() {
@@ -17,21 +17,20 @@ export default function AddSiswa() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const nis = e.target.nis.value;
+    // const nis = e.target.nis.value;
     const nama = e.target.nama.value;
     const alamat = e.target.alamat.value;
     const jurusan = e.target.jurusan.value;
     const sertifikat = e.target.sertifikat.value;
 
     const newSiswa = {
-      nis,
       nama,
       alamat,
       jurusan,
       sertifikat,
     };
 
-    dispatch(tambahSiswa(newSiswa));
+    dispatch(createSiswa(newSiswa));
 
     setNis("");
     setNama("");
@@ -56,7 +55,7 @@ export default function AddSiswa() {
       </div>
       <div className="card mt-3 px-5 pt-5 pb-5 shadow p-2 mb-1 mt-1 rounded">
         <form onSubmit={(e) => handleSubmit(e)}>
-          <div className="form-group">
+          {/* <div className="form-group">
             <label className="col-sm-2 col-form-label mt-2">NIS</label>
             <input
               type="text"
@@ -67,7 +66,7 @@ export default function AddSiswa() {
               onChange={(e) => setNis(e.target.value)}
               required
             />
-          </div>
+          </div> */}
           <div className="form-group">
             <label className="col-sm-2 col-form-label mt-2">Nama</label>
             <input

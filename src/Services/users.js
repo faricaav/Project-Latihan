@@ -1,4 +1,4 @@
-import http from "./http-users";
+import http from "./http-all";
 
 const getAll = () => {
   return http.get("/users");

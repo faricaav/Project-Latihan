@@ -1,30 +1,28 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, Link, useLocation, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { putUsers } from "../../Store/users";
-import UsersService from "../../Services/users";
+import { putArtikel } from "../../Store/artikel";
 import { Button } from "../../stories/Button";
+import ArtikelService from "../../Services/artikel";
 
-export default function UpdateUsers() {
-  const {id} = useParams();
-  console.log(id)
+export default function UpdateArtikel() {
+  const {_id} = useParams();
   let navigate = useNavigate();
 
-  const initialUsersState = {
-    id: 0,
-    name: "",
-    username: "",
-    email: "",
-    password: ""
+  const initialArtikelState = {
+    _id: 0,
+    karya: "",
+    tanggal_publish: "",
+    isi: ""
   };
-  const [currentUsers, setCurrentUsers] = useState(initialUsersState);
+  const [currentArtikel, setCurrentArtikel] = useState(initialArtikelState);
 
   const dispatch = useDispatch();
 
-  const getUsers = id => {
-    UsersService.get(id)
+  const getArtikel = _id => {
+    ArtikelService.get(_id)
       .then(response => {
-        setCurrentUsers(response.data);
+        setCurrentArtikel(response.data);
         console.log(response.data)
       })
       .catch(e => {
@@ -33,18 +31,19 @@ export default function UpdateUsers() {
   };
 
   useEffect(() => {
-    if (id)
-      getUsers(id);
-  }, [id]);
+    if (_id)
+      getArtikel(_id);
+      console.log(_id)
+  }, [_id]);
 
   const handleInputChange = event => {
     const { name, value } = event.target;
-    setCurrentUsers({ ...currentUsers, [name]: value });
+    setCurrentArtikel({ ...currentArtikel, [name]: value });
   };
-
-  const updateUsers = () => {
-    console.log("tes", currentUsers)
-    dispatch(putUsers({ id: currentUsers.id, data: currentUsers }))
+  
+  const updateArtikel = () => {
+    console.log("tes", currentArtikel)
+    dispatch(putArtikel({ _id: currentArtikel._id, data: currentArtikel }))
       .unwrap()
       .then(response => {
         console.log(response);
@@ -52,7 +51,7 @@ export default function UpdateUsers() {
       .catch(e => {
         console.log(e);
       });
-    navigate("/users")
+    navigate("/artikel")
   };
 
   return (
@@ -62,51 +61,51 @@ export default function UpdateUsers() {
     >
       <div className="card px-3 pt-2 pb-1 shadow p-2 mt-1 rounded">
         <h5>
-          <b>Edit Users</b>
+          <b>Edit Artikel</b>
         </h5>
       </div>
       <div className="card mt-3 px-5 pt-5 pb-5 shadow p-2 mb-1 mt-1 rounded">
-        <form onSubmit={updateUsers}>
-        <div className="form-group">
-            <label className="col-sm-2 col-form-label mt-2">Name</label>
+        <form onSubmit={updateArtikel}>
+          {/* <div className="form-group">
+            <label className="col-sm-2 col-form-label mt-2">NIS</label>
             <input
               type="text"
-              name="name"
+              name="_id"
               className="form-control"
-              value={currentUsers.name}
+              value={currentArtikel._id}
               onChange={handleInputChange}
               required
             />
-          </div>
+          </div> */}
           <div className="form-group">
-            <label className="col-sm-2 col-form-label mt-2">Username</label>
+            <label className="col-sm-2 col-form-label mt-2">Karya</label>
             <input
               type="text"
-              name="username"
+              name="karya"
               className="form-control"
-              value={currentUsers.username}
+              value={currentArtikel.karya}
               onChange={handleInputChange}
               required
             />
           </div>
           <div className="form-group">
-            <label className="col-sm-2 col-form-label mt-2">Email</label>
+            <label className="col-sm-2 col-form-label mt-2">Tanggal Publish</label>
             <input
-              type="email"
-              name="email"
+              type="date"
+              name="tanggal_publish"
               className="form-control"
-              value={currentUsers.email}
+              value={currentArtikel.tanggal_publish}
               onChange={handleInputChange}
               required
             />
           </div>
           <div className="form-group">
-            <label className="col-sm-2 col-form-label mt-2">Password</label>
-            <input
-              type="password"
-              name="password"
+            <label className="col-sm-2 col-form-label mt-2">Isi</label>
+            <textarea
+              type="text"
+              name="isi"
               className="form-control"
-              value={currentUsers.password}
+              value={currentArtikel.isi}
               onChange={handleInputChange}
               required
             />
@@ -115,7 +114,7 @@ export default function UpdateUsers() {
           <br/>
           <Button type="submit" primary={true} label="Submit">
           </Button>
-          <Link to={"/users"}>
+          <Link to={"/artikel"}>
             <Button type="submit" danger={true} label="Cancel"></Button>
           </Link>
         </form>

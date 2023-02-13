@@ -1,54 +1,58 @@
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, Link, useLocation } from "react-router-dom";
-import { useState } from "react";
-import { updateSiswa } from "../../Store/siswa";
+import { useNavigate, Link, useLocation, useParams } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { putSiswa } from "../../Store/siswa";
 import { Button } from "../../stories/Button";
+import SiswaService from "../../Services/siswa";
 
 export default function UpdateSiswa() {
+  const {nis} = useParams();
+  let navigate = useNavigate();
+
+  const initialSiswaState = {
+    nis: 0,
+    nama: "",
+    alamat: "",
+    jurusan: "",
+    sertifikat: ""
+  };
+  const [currentSiswa, setCurrentSiswa] = useState(initialSiswaState);
+
   const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const { pathname } = useLocation();
 
-  const nisSiswa = pathname.replace("/updateSiswa/", "");
+  const getSiswa = nis => {
+    SiswaService.get(nis)
+      .then(response => {
+        setCurrentSiswa(response.data);
+        console.log(response.data)
+      })
+      .catch(e => {
+        console.log(e);
+      });
+  };
 
-  const siswa = useSelector((state) =>
-    state.siswa.siswa.find((item) => item.nis === nisSiswa)
-  );
+  useEffect(() => {
+    if (nis)
+      getSiswa(nis);
+      console.log(nis)
+  }, [nis]);
 
-  const [nis, setNis] = useState(siswa.nis);
-  const [nama, setNama] = useState(siswa.nama);
-  const [alamat, setAlamat] = useState(siswa.alamat);
-  const [jurusan, setJurusan] = useState(siswa.jurusan);
-  const [sertifikat, setSertifikat] = useState(siswa.sertifikat);
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    const nis = e.target.nis.value;
-    const nama = e.target.nama.value;
-    const alamat = e.target.alamat.value;
-    const jurusan = e.target.jurusan.value;
-    const sertifikat = e.target.sertifikat.value;
-
-    const newSiswa = {
-      nis,
-      nama,
-      alamat,
-      jurusan,
-      sertifikat,
-    };
-
-    dispatch(updateSiswa(newSiswa));
-
-    setNis("");
-    setNama("");
-    setAlamat("");
-    setJurusan("");
-    setSertifikat(null);
-
-    navigate("/list");
-
-    console.log(newSiswa);
+  const handleInputChange = event => {
+    const { name, value } = event.target;
+    setCurrentSiswa({ ...currentSiswa, [name]: value });
+  };
+  
+  const updateSiswa = () => {
+    console.log("tes", currentSiswa)
+    dispatch(putSiswa({ nis: currentSiswa.nis, data: currentSiswa }))
+      .unwrap()
+      .then(response => {
+        console.log(response);
+      })
+      .catch(e => {
+        console.log(e);
+      });
+    navigate("/list")
   };
 
   return (
@@ -62,26 +66,26 @@ export default function UpdateSiswa() {
         </h5>
       </div>
       <div className="card mt-3 px-5 pt-5 pb-5 shadow p-2 mb-1 mt-1 rounded">
-        <form onSubmit={(e) => handleSubmit(e)}>
-          <div className="form-group">
+        <form onSubmit={updateSiswa}>
+          {/* <div className="form-group">
             <label className="col-sm-2 col-form-label mt-2">NIS</label>
             <input
               type="text"
               name="nis"
               className="form-control"
-              value={nis}
-              onChange={(e) => setNis(e.target.value)}
+              value={currentSiswa.nis}
+              onChange={handleInputChange}
               required
             />
-          </div>
+          </div> */}
           <div className="form-group">
             <label className="col-sm-2 col-form-label mt-2">Nama</label>
             <input
               type="text"
               name="nama"
               className="form-control"
-              value={nama}
-              onChange={(e) => setNama(e.target.value)}
+              value={currentSiswa.nama}
+              onChange={handleInputChange}
               required
             />
           </div>
@@ -91,8 +95,8 @@ export default function UpdateSiswa() {
               type="text"
               name="alamat"
               className="form-control"
-              value={alamat}
-              onChange={(e) => setAlamat(e.target.value)}
+              value={currentSiswa.alamat}
+              onChange={handleInputChange}
               required
             />
           </div>
@@ -102,8 +106,8 @@ export default function UpdateSiswa() {
               type="text"
               name="jurusan"
               className="form-control"
-              value={jurusan}
-              onChange={(e) => setJurusan(e.target.value)}
+              value={currentSiswa.jurusan}
+              onChange={handleInputChange}
               required
             />
           </div>
@@ -116,8 +120,8 @@ export default function UpdateSiswa() {
                     type="radio"
                     name="sertifikat"
                     value="true"
-                    checked={sertifikat === "true"}
-                    onChange={(e) => setSertifikat(e.target.value)}
+                    checked={currentSiswa.sertifikat === "true"}
+                    onChange={handleInputChange}
                   />
                   &nbsp; Ada
                 </label>
@@ -127,8 +131,8 @@ export default function UpdateSiswa() {
                     type="radio"
                     name="sertifikat"
                     value="false"
-                    checked={sertifikat === "false"}
-                    onChange={(e) => setSertifikat(e.target.value)}
+                    checked={currentSiswa.sertifikat === "false"}
+                    onChange={handleInputChange}
                   />
                   &nbsp; Tidak Ada
                 </label>

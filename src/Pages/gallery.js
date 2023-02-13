@@ -1,41 +1,44 @@
 import React, {useState, useEffect} from "react";
 import Card from "../Components/card";
-import { useSelector, useDispatch } from "react-redux";
-import { useLocation, Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Alert from "../stories/Alert";
+import SertifikatService from "../Services/sertifikat";
+import SiswaService from "../Services/siswa";
 
 export default function Gallery(){
-    const sertifikat = useSelector((state) => state.sertifikat.sertifikat);
-    const { pathname } = useLocation();
+    const {nis} = useParams();
+    const [siswa, setSiswa] = useState([])
+    const [sertifikat, setSertifikat] = useState([])
 
-    const nisSiswa = pathname.replace("/gallery/", "");
+    const getSertif = nis => {
+        SertifikatService.getAll(nis)
+          .then(response => {
+            setSertifikat(response.data)
+            console.log(response.data)
+          })
+          .catch(e => {
+            console.log(e);
+          });
+    };
 
-    const siswa = useSelector((state) =>
-        state.siswa.siswa.find((item) => item.nis === nisSiswa)
-    );
+    const getSiswa = nis => {
+        SiswaService.get(nis)
+          .then(response => {
+            setSiswa(response.data)
+            console.log(response.data)
+          })
+          .catch(e => {
+            console.log(e);
+          });
+    };
+    
+    useEffect(() => {
+    if (nis)
+        getSertif(nis);
+        getSiswa(nis);
+    }, [nis]);
 
-    const [nis] = useState(siswa.nis);
-    const [nama] = useState(siswa.nama);
-    const [alamat] = useState(siswa.alamat);
-    const [jurusan] = useState(siswa.jurusan);
-
-    let [keyword, setKeyword] = useState("")
-    const [filteredSertif, setFilteredSertif] = useState(sertifikat)
-
-    const searching = event => {
-        if(event.keyCode === 13){
-            // 13 adalah kode untuk tombol enter
- 
-            let keywords = keyword.toLowerCase()
-            let tempSertif = sertifikat
-            let result = tempSertif.filter(item => {
-                return item.judul.toLowerCase().includes(keywords) ||
-                item.lomba.toLowerCase().includes(keywords)
-            })
- 
-            setFilteredSertif([...result])
-        }
-    }
+    const nisSiswa = siswa.nis;
 
     return (  
         <div style={{paddingLeft:"10%", paddingTop:"30px"}}>
@@ -43,38 +46,48 @@ export default function Gallery(){
             <div className="card mt-5">
                 <div className="card-body">
                     <p className="text-black font-weight" align="left">
-                        <b>NIS &emsp;&emsp;&emsp;&emsp;: </b>&emsp;{nis}
+                        <b>NIS &emsp;&emsp;&emsp;&emsp;: </b>&emsp;{siswa.nis}
                     </p>
                     <p className="text-black" align="left">
-                        <b>Nama &emsp;&ensp;&ensp;&emsp;: </b>&emsp;{nama}
+                        <b>Nama &emsp;&ensp;&ensp;&emsp;: </b>&emsp;{siswa.nama}
                     </p>
                     <p className="text-black" align="left">
-                        <b>Alamat &emsp;&ensp;&emsp;: </b>&emsp;{alamat}
+                        <b>Alamat &emsp;&ensp;&emsp;: </b>&emsp;{siswa.alamat}
                     </p>
                     <p className="text-black" align="left">
-                        <b>Jurusan &emsp;&emsp;: </b>&emsp;{jurusan}
+                        <b>Jurusan &emsp;&emsp;: </b>&emsp;{siswa.jurusan}
                     </p>
                     <br/>
-                    <div className="input-group mb-2">
-                        <span className="input-group-text" id="basic-addon1">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-                                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
-                            </svg>
-                        </span>
-                        <input type="text" className="form-control" placeholder="Masukkan Judul Sertifikat" aria-label="Masukkan Judul Sertifikat" aria-describedby="basic-addon1"
-                        value={keyword}
-                        onChange={ev => setKeyword(ev.target.value)}
-                        onKeyUp={ev => searching(ev)}/>
-                    </div>
+                    <Link to={`/addSertif/${nisSiswa}`}>
+                        <button
+                        className="btn btn-sm btn-white col-sm-12"
+                        data-toggle="modal"
+                        data-target="#modal"
+                        >
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="16"
+                            height="16"
+                            fill="currentColor"
+                            className="bi bi-plus-circle"
+                            viewBox="0 0 18 18"
+                        >
+                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                            <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
+                        </svg>{" "}
+                        Tambah Sertifikat
+                        </button>
+                    </Link>
+                    <br/>
                     <div className="row">
-                        { siswa.sertifikat === "true" && filteredSertif.map( (item, index) => (
+                        {  sertifikat.length>0 && sertifikat.map( (item, index) => (
                             <Card key={index} data-testid="list-item"
                             judul={item.judul}
                             lomba={item.lomba}
                             cover={item.cover}
                             />
                         )) }
-                        {siswa.sertifikat === "false" && 
+                        { sertifikat.length===0 &&
                         <div align="center">
                             <Alert variant="danger">
                                 Belum ada sertifikat

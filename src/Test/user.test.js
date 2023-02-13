@@ -1,11 +1,11 @@
 //test card component
 import React from "react";
 import Users from "../Components/users"
-import { screen, cleanup, fireEvent, render } from "@testing-library/react";
-import { Provider, useSelector } from "react-redux";
+import { screen, fireEvent, render } from "@testing-library/react";
+import { Provider } from "react-redux";
 import "@testing-library/jest-dom/extend-expect";
 import {BrowserRouter} from 'react-router-dom';
-import UsersSlice, { createUsers, initialState } from "../Store/users";
+import UsersSlice, { initialState } from "../Store/users";
 import store from "../Store/store";
 import AddUsers from "../Components/Form/tambah_users";
 
@@ -59,7 +59,7 @@ describe("Users", () => {
         fireEvent.change(inputEmail, {target: {value: "farica@gmail.com"}})
         expect(inputEmail.value).toBe('farica@gmail.com')
     })
-    test('Input Phone', async() => {
+    test('Input Password', async() => {
         render(
           <Provider store={store}>
               <BrowserRouter>
@@ -67,8 +67,8 @@ describe("Users", () => {
               </BrowserRouter>
           </Provider>
         )
-        const inputPhone = screen.getByRole("input-phone")
-        fireEvent.change(inputPhone, {target: {value: "08123456789"}})
-        expect(inputPhone.value).toBe('08123456789')
+        const inputPassword = screen.getByRole("input-password")
+        fireEvent.change(inputPassword, {target: {value: "12345"}})
+        expect(inputPassword.value).toBe('12345')
     })
 });

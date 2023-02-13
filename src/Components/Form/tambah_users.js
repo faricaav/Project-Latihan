@@ -8,41 +8,40 @@ export default function AddUsers() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const initialUsersState = {
-    name: "",
-    username: "",
-    email: "",
-    phone: ""
-  };
-  const [users, setUsers] = useState(initialUsersState);
+  const [id, setId] = useState("");
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
 
-  const handleInputChange = event => {
-    const { name, value } = event.target;
-    setUsers({ ...users, [name]: value });
-  };
+  const handleSubmit = (e) => {
+    e.preventDefault();
 
-  const saveUsers = () => {
-    console.log("coba", users)
+    const id = e.target.id.value;
+    const name = e.target.name.value;
+    const email = e.target.email.value;
+    const username = e.target.username.value;
+    const password = e.target.password.value;
 
-    const { name, username, email, phone } = users;
-    console.log("tes", users.name)
+    const newUsers = {
+      id,
+      name,
+      email,
+      username,
+      password,
+    };
 
-    // setUsers({
-    //     name: data.name,
-    //     username: data.username,
-    //     email: data.email,
-    //     phone: data.phone
-    // });
+    dispatch(createUsers(newUsers));
 
-    dispatch(createUsers({name, username, email, phone }))
-      .unwrap()
-      .then(data => {
-        console.log(data);
-      })
-      .catch(e => {
-        console.log(e);
-      });
-      navigate("/users")
+    setId("");
+    setName("");
+    setEmail("");
+    setUsername("");
+    setPassword("");
+
+    navigate("/users");
+
+    console.log(newUsers);
   };
 
   return (
@@ -56,7 +55,19 @@ export default function AddUsers() {
         </h5>
       </div>
       <div className="card mt-3 px-5 pt-5 pb-5 shadow p-2 mb-1 mt-1 rounded">
-        <form onSubmit={saveUsers}>
+        <form onSubmit={(e)=>{handleSubmit(e)}}>
+        <div className="form-group">
+            <label className="col-sm-2 col-form-label mt-2">ID</label>
+            <input
+              type="text"
+              name="id"
+              role="input-id"
+              className="form-control"
+              value={id}
+              onChange={(e) => setId(e.target.value)}
+              required
+            />
+          </div>
           <div className="form-group">
             <label className="col-sm-2 col-form-label mt-2">Name</label>
             <input
@@ -64,8 +75,8 @@ export default function AddUsers() {
               name="name"
               role="input-name"
               className="form-control"
-              value={users.name}
-              onChange={handleInputChange}
+              value={name}
+              onChange={(e) => setName(e.target.value)}
               required
             />
           </div>
@@ -76,8 +87,8 @@ export default function AddUsers() {
               name="username"
               role="input-username"
               className="form-control"
-              value={users.username}
-              onChange={handleInputChange}
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
               required
             />
           </div>
@@ -88,20 +99,20 @@ export default function AddUsers() {
               name="email"
               role="input-email"
               className="form-control"
-              value={users.email}
-              onChange={handleInputChange}
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               required
             />
           </div>
           <div className="form-group">
-            <label className="col-sm-2 col-form-label mt-2">Phone</label>
+            <label className="col-sm-2 col-form-label mt-2">Password</label>
             <input
-              type="text"
-              name="phone"
-              role="input-phone"
+              type="password"
+              name="password"
+              role="input-password"
               className="form-control"
-              value={users.phone}
-              onChange={handleInputChange}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               required
             />
           </div>

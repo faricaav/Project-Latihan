@@ -1,48 +1,64 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import SiswaService from "../Services/siswa";
 
-export const initialState = {
-    siswa: [
-        {nis: "100", nama: "Sheva", alamat: "Surabaya", jurusan: "TKJ", sertifikat: "true"},  
-        {nis: "101", nama: "Shiva", alamat: "Malang", jurusan: "RPL", sertifikat: "true"},  
-        {nis: "102", nama: "Shava", alamat: "Pasuruan", jurusan: "RPL", sertifikat: "false"},
-    ]};
+export const initialState = [];
+
+export const retrieveSiswa = createAsyncThunk(
+  "siswa",
+  async () => {
+    const res = await SiswaService.getAll();
+    return res.data;
+  }
+);
+
+export const createSiswa = createAsyncThunk(
+  "siswa/add",
+  async ({ nama, alamat, jurusan, sertifikat }) => {
+    const res = await SiswaService.create({ nama, alamat, jurusan, sertifikat });
+    // console.log(data)
+    return res.data;
+  }
+);
+
+export const putSiswa = createAsyncThunk(
+  "siswa/update",
+  async ({ nis, data }) => {
+    const res = await SiswaService.update(nis, data);
+    return res.data;
+  }
+);
+
+export const deleteSiswa = createAsyncThunk(
+  "siswa/delete",
+  async ({ nis }) => {
+    await SiswaService.remove(nis);
+    return { nis };
+  }
+);
 
 export const siswaSlice = createSlice({
   name: "siswa",
   initialState,
-  reducers: {
-    tambahSiswa(state, action) {
-        state.siswa.push(action.payload);
+  reducers: {},
+  extraReducers: {
+    [createSiswa.fulfilled]: (state, action) => {
+      state.push(action.payload);
     },
-    updateSiswa(state, action) {
-        const { nis, nama, alamat, jurusan, sertifikat } = action.payload;
-        const existingSiswa = state.siswa.find((siswa) => siswa.nis === nis);
-        if (existingSiswa) {
-          existingSiswa.nis = nis;
-          existingSiswa.nama = nama;
-          existingSiswa.alamat = alamat;
-          existingSiswa.jurusan = jurusan;
-          existingSiswa.sertifikat = sertifikat;
-        }
+    [retrieveSiswa.fulfilled]: (state, action) => {
+      return [...action.payload];
     },
-    deleteSiswa(state, action) {
-      if(window.confirm("Apakah yakin untuk menghapus?")){
-        state.siswa = state.siswa.filter(
-          (siswa) => siswa.nis !== action.payload
-        );
-      }
-    }
-  },
+    [putSiswa.fulfilled]: (state, action) => {
+      const index = state.findIndex(siswa => siswa.nis === action.payload.nis);
+      state[index] = {
+        ...state[index],
+        ...action.payload,
+      };
+    },
+    [deleteSiswa.fulfilled]: (state, action) => {
+      let index = state.findIndex(({ nis }) => nis === action.payload.nis);
+      state.splice(index, 1);
+    },
+  }
 });
-
-export const asyncSiswa = (siswa) => (dispatch) => {
-    setTimeout(() => {
-      dispatch(tambahSiswa(siswa));
-      dispatch(updateSiswa(siswa));
-      dispatch(deleteSiswa(siswa));
-    }, 1000);
-};
-
-export const { tambahSiswa, updateSiswa, deleteSiswa } = siswaSlice.actions;
 
 export default siswaSlice.reducer;

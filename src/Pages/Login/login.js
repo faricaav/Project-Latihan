@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import ReactDOM from "react-dom";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
+import { retrieveUsers } from "../../Store/users";
 
 import "./login.css"
 import styled from "styled-components"
@@ -38,7 +39,16 @@ const Label = styled.label`
 
 function Login() {
   const navigate = useNavigate()
-	const user = useSelector((state) => state.user.user);
+  const dispatch = useDispatch()
+	const user = useSelector((state) => state.users);
+  
+  const initFetch = useCallback(() => {
+    dispatch(retrieveUsers());
+  }, [dispatch])
+
+  useEffect(() => {
+    initFetch()
+  }, [initFetch])
   // React States
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -57,11 +67,10 @@ function Login() {
     var { uname, pass } = document.forms[0];
 
     // Find user login info
-    const userData = user.find((user) => user.username === uname.value);
-
+    const userData = user.find((user) => user.data.username === uname.value);
     // Compare user info
     if (userData) {
-      if (userData.password !== pass.value) {
+      if (userData.data.password !== pass.value) {
         // Invalid password
         setErrorMessages({ name: "pass", message: errors.pass });
         setIsSubmitted(false);

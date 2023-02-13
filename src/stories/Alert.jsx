@@ -1,5 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import React from "react";
+import PropTypes from 'prop-types';
+
 export default function Alert({ variant = "info", children }) {
   const beforeStyles = {
     width: 35,
@@ -65,12 +67,12 @@ export default function Alert({ variant = "info", children }) {
         maxWidth: "2000px",
         ...variantStyles[variant],
       }}
-      s
     >
             {children}   {" "}
     </aside>
   );
 }
 Alert.propTypes = {
-  variant: "info" | "congrats" | "documentation" | "danger",
+  // variant: "info" | "congrats" | "documentation" | "danger",
+  variant : PropTypes.oneOf(['info', 'congrats', 'documentation', 'danger'])
 };

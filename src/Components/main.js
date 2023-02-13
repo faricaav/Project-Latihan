@@ -11,6 +11,10 @@ import UpdateSiswa from "./Form/edit_siswa";
 import Users from "./users";
 import AddUsers from "./Form/tambah_users";
 import UpdateUsers from "./Form/edit_users";
+import Artikel from "./artikel";
+import AddArtikel from "./Form/tambah_artikel";
+import UpdateArtikel from "./Form/edit_artikel";
+import AddSertifikat from "./Form/tambah_sertif";
 
 export const SidebarLayout = () => (
     <>
@@ -37,6 +41,10 @@ const Main=()=>(
             />}/>
             <Route path="/gallery/:nis" element={<Gallery/>} />
             <Route path="/list" element={<List/>} />
+            <Route path="/addSertif/:nis" element={<AddSertifikat/>} />
+            <Route path="/artikel" element={<Artikel/>} />
+            <Route path="/addArtikel" element={<AddArtikel/>} />
+            <Route path="/updateArtikel/:_id" element={<UpdateArtikel/>} />
             <Route path="/users" element={<Users/>} />
             <Route path="/addSiswa" element={<AddSiswa/>} />
             <Route path="/addUsers" element={<AddUsers/>} />

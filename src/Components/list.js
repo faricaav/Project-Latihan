@@ -1,14 +1,37 @@
+import { useEffect, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import { deleteSiswa } from "../Store/siswa";
+import { deleteSiswa, retrieveSiswa } from "../Store/siswa";
 import "../stories/table.css"
 import { Button } from "../stories/Button";
 import { EmptyDataList } from "../stories/Table.stories";
+import { useNavigate } from "react-router-dom";
 
 export default function List() {
   const dispatch = useDispatch();
-  const siswa = useSelector((state) => state.siswa.siswa);
-  
+  const navigate = useNavigate();
+  const siswa = useSelector((state) => state.siswa);
+
+  const removeSiswa = (item) => {
+    if(window.confirm("Apakah yakin untuk menghapus?")){
+      dispatch(deleteSiswa({ nis: item.nis }))
+        .unwrap()
+        .then(() => {
+          navigate("/list");
+        })
+        .catch(e => {
+          console.log(e);
+        });
+    }
+  };
+
+  const initFetch = useCallback(() => {
+    dispatch(retrieveSiswa());
+  }, [dispatch])
+
+  useEffect(() => {
+    initFetch()
+  }, [initFetch])
   return (
     <div
       className="container my-n5 mt-5"
@@ -110,7 +133,7 @@ export default function List() {
                       danger={true}
                       data-testid={`delete-${index}`} key={index}
                       onClick={() => {
-                        dispatch(deleteSiswa(item.nis));
+                        dispatch(removeSiswa(item));
                       }}
                       size="small"
                       label={<svg

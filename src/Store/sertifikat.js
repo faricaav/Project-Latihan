@@ -1,29 +1,64 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import SertifikatService from "../Services/sertifikat";
 
-export const initialState = {
-    sertifikat: [
-        {
-            judul:"Lomba Menulis Nasional", lomba:"Tere Liye Competition",
-            cover:"https://1.bp.blogspot.com/-4wcv_UERR28/YU2Kfse0yqI/AAAAAAAAFhw/nZSRAp8MnyA57cZrwlKqfSlHX4EujiBcACLcBGAsYHQ/s2048/sertifikat%2Bcopy.jpg" 
-        },
-        {
-            judul:"Lomba Menyanyi Nasional", lomba:"FLS2N",
-            cover:"https://posi.id/wp-content/uploads/2021/09/Sertifikat-Hardiknas.png" 
-        },
-        {
-            judul:"Lomba Business Plan Nasional", lomba:"Business Plan BINUS University",
-            cover:"https://statik.unesa.ac.id/profileunesa_konten_statik/uploads/s1pkimia/file/43071f8b-3cf2-404b-ad44-367a6b9fb8fc.jpeg" 
-        },
-        {
-            judul:"Lomba Desain Grafis Nasional", lomba:"Rubik Grafis Competition",
-            cover:"https://1.bp.blogspot.com/-UWzI6qOGRJM/X6oRlQuiioI/AAAAAAAAHck/oHhcTTyyqiA9yqd7kyrVe7yl3UcnFwqvACLcBGAsYHQ/w1200-h630-p-k-no-nu/template-sertifikat.jpg" 
-        }
-    ]};
+export const initialState = [];
+
+export const retrieveSertifikat = createAsyncThunk(
+  "sertifikat",
+  async ({nis}) => {
+    const res = await SertifikatService.getAll(nis);
+    return res.data;
+  }
+);
+
+export const createSertifikat = createAsyncThunk(
+  "sertifikat/add",
+  async ({ nis, judul, lomba, cover }) => {
+    const res = await SertifikatService.create({nis, judul, lomba, cover });
+    // console.log(data)
+    return res.data;
+  }
+);
+
+export const putSertifikat = createAsyncThunk(
+  "sertifikat/update",
+  async ({ id, data }) => {
+    const res = await SertifikatService.update(id, data);
+    return res.data;
+  }
+);
+
+export const deleteSertifikat = createAsyncThunk(
+  "sertifikat/delete",
+  async ({ id }) => {
+    await SertifikatService.remove(id);
+    return { id };
+  }
+);
 
 export const sertifikatSlice = createSlice({
   name: "sertifikat",
   initialState,
   reducers: {},
+  extraReducers: {
+    [createSertifikat.fulfilled]: (state, action) => {
+      state.push(action.payload);
+    },
+    [retrieveSertifikat.fulfilled]: (state, action) => {
+      return [...action.payload];
+    },
+    [putSertifikat.fulfilled]: (state, action) => {
+      const index = state.findIndex(sertifikat => sertifikat.id === action.payload.id);
+      state[index] = {
+        ...state[index],
+        ...action.payload,
+      };
+    },
+    [deleteSertifikat.fulfilled]: (state, action) => {
+      let index = state.findIndex(({ id }) => id === action.payload.id);
+      state.splice(index, 1);
+    },
+  }
 });
 
 export default sertifikatSlice.reducer;

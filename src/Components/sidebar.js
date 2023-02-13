@@ -29,16 +29,19 @@ export default function Sidebar(){
 
             <CDBSidebarContent className="sidebar-content">
               <CDBSidebarMenu>
-                <NavLink exact to="/dashboard" activeClassName="activeClicked">
+                <NavLink to="/dashboard" activeclassname="activeClicked">
                   <CDBSidebarMenuItem icon="th-large">Dashboard</CDBSidebarMenuItem>
                 </NavLink>
-                <NavLink exact to="/list" activeClassName="activeClicked">
+                <NavLink to="/list" activeclassname="activeClicked">
                   <CDBSidebarMenuItem icon="list">List</CDBSidebarMenuItem>
                 </NavLink>
-                <NavLink exact to="/users" activeClassName="activeClicked">
+                <NavLink to="/artikel" activeclassname="activeClicked">
+                  <CDBSidebarMenuItem icon="file-alt">Artikel</CDBSidebarMenuItem>
+                </NavLink>
+                <NavLink to="/users" activeclassname="activeClicked">
                   <CDBSidebarMenuItem icon="user-alt">Users</CDBSidebarMenuItem>
                 </NavLink>
-                <NavLink exact to="/" activeClassName="activeClicked">
+                <NavLink to="/" activeclassname="activeClicked">
                   <CDBSidebarMenuItem icon="sign-out-alt">Logout</CDBSidebarMenuItem>
                 </NavLink>
               </CDBSidebarMenu>

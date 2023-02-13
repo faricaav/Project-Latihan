@@ -13,8 +13,8 @@ export const retrieveUsers = createAsyncThunk(
 
 export const createUsers = createAsyncThunk(
   "users/add",
-  async ({ name, username, email, phone }) => {
-    const res = await UsersService.create({ name, username, email, phone });
+  async ({ id, name, username, email, password}) => {
+    const res = await UsersService.create({ id, name, username, email, password});
     // console.log(data)
     return res.data;
   }
@@ -38,10 +38,13 @@ export const deleteUsers = createAsyncThunk(
 
 export const usersSlice = createSlice({
   name: "users",
-  initialState,
+  initialState:{
+    createUsersIsPending: false,
+  },
   reducers: {},
   extraReducers: {
     [createUsers.fulfilled]: (state, action) => {
+      state.createUsersIsPending = false
       state.push(action.payload);
     },
     [retrieveUsers.fulfilled]: (state, action) => {
